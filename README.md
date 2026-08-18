@@ -114,7 +114,8 @@ pipeline.
 ```
 Quests/
 └── Quest 4/
-    └── Stage 1/   ← starter kit, task brief and background guide for Quest #04, Part A
+    ├── Stage 1/   ← starter kit, task brief and background guide for Quest #04, Part A
+    └── Stage 2/   ← starter kit, task brief and background guide for Quest #04, Part B
 ```
 
 Additional Quests and stages will be added here over time.
