@@ -64,6 +64,7 @@ DATA_DIR = Path(__file__).resolve().parent / "data"
 # Fixture loading
 # --------------------------------------------------------------------------- #
 
+
 @lru_cache(maxsize=None)
 def _load(filename: str) -> Dict[str, Any]:
     """Load and cache a JSON fixture from ``data/``."""
@@ -153,6 +154,7 @@ def _claims_in_window(user: Dict[str, Any]) -> int:
 # Tool 1 — order lookup
 # --------------------------------------------------------------------------- #
 
+
 def get_order_details(order_id: str) -> Dict[str, Any]:
     """Look up a single GlobalCart order by its id.
 
@@ -195,6 +197,7 @@ def get_order_details(order_id: str) -> Dict[str, Any]:
 # Tool 2 — customer lookup
 # --------------------------------------------------------------------------- #
 
+
 def get_user_profile(user_id: str) -> Dict[str, Any]:
     """Look up a GlobalCart customer profile by user id.
 
@@ -233,6 +236,7 @@ def get_user_profile(user_id: str) -> Dict[str, Any]:
 # --------------------------------------------------------------------------- #
 # Tool 3 — policy evaluation
 # --------------------------------------------------------------------------- #
+
 
 def check_return_policy(order_id: str, reason: str = "damaged_on_arrival") -> Dict[str, Any]:
     """Decide whether an order is still eligible for a return or refund.
@@ -405,7 +409,11 @@ def check_return_policy(order_id: str, reason: str = "damaged_on_arrival") -> Di
             f"Order {order['order_id']} is within the {limits['return_window_days']}-day "
             f"window ({days_since} days since delivery). Automatic refund authority is "
             f"{limits['auto_refund_cap_usd']:.2f} USD."
-            + (f" Escalation is required: {'; '.join(escalation_reasons)}." if escalation_reasons else "")
+            + (
+                f" Escalation is required: {'; '.join(escalation_reasons)}."
+                if escalation_reasons
+                else ""
+            )
         ),
     }
 
@@ -414,7 +422,10 @@ def check_return_policy(order_id: str, reason: str = "damaged_on_arrival") -> Di
 # Tool 4 — the action
 # --------------------------------------------------------------------------- #
 
-def process_refund(order_id: str, amount: float, reason: str = "damaged_on_arrival") -> Dict[str, Any]:
+
+def process_refund(
+    order_id: str, amount: float, reason: str = "damaged_on_arrival"
+) -> Dict[str, Any]:
     """Attempt to issue a refund. This is the only tool that changes anything.
 
     When to use this tool:
@@ -534,15 +545,14 @@ def process_refund(order_id: str, amount: float, reason: str = "damaged_on_arriv
             f"within the {cap:.2f} USD automatic refund authority",
             f"claim is eligible ({check.get('verdict')})",
         ],
-        "message": (
-            f"Refund of {float(amount):.2f} USD approved for order {order['order_id']}."
-        ),
+        "message": (f"Refund of {float(amount):.2f} USD approved for order {order['order_id']}."),
     }
 
 
 # --------------------------------------------------------------------------- #
 # Convenience helpers (not part of the required tool set)
 # --------------------------------------------------------------------------- #
+
 
 def list_order_ids() -> List[str]:
     """Return every order id in the fixture. Handy while exploring; your agent
