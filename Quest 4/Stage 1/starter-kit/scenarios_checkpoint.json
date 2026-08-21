@@ -1,0 +1,23 @@
+[
+  {
+    "Scenario": "SC-01",
+    "Decision": "APPROVED",
+    "Refund": 35.0,
+    "Tools Called": "get_order_details, get_user_profile, check_return_policy, process_refund",
+    "Customer Response": "Hello Maya, I am very sorry to hear that your GlobalCart Wired Earbuds arrived w..."
+  },
+  {
+    "Scenario": "SC-02",
+    "Decision": "ESCALATION_REQUIRED",
+    "Refund": 0.0,
+    "Tools Called": "get_order_details, get_user_profile, check_return_policy, process_refund",
+    "Customer Response": "I have reviewed your request for order ORD-1002. While the order is within our 3..."
+  },
+  {
+    "Scenario": "SC-03",
+    "Decision": "REJECTED",
+    "Refund": 0.0,
+    "Tools Called": "get_order_details, get_user_profile, check_return_policy",
+    "Customer Response": "I have reviewed your request for order ORD-1003. Unfortunately, I am unable to p..."
+  }
+]
